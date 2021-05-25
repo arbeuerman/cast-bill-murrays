@@ -6,14 +6,8 @@ export default class BillCollection extends Component {
     return (
       <div className="ui four column grid">
         <div className="row">
-          {this.props.bills.map((bill) => (
-            <BillCard
-              key={bill.id}
-              bill={bill}
-              handleClick={this.props.handleClick}
-              handleFire={this.props.handleFire}
-            />
-          ))}
+          {this.props.bills.map(bill => 
+          <BillCard key={bill.id} bill={bill} handleClick={this.props.addBill} handleFire={this.props.fireBill} /> )}
         </div>
       </div>
     );

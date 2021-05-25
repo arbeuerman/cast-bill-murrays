@@ -3,7 +3,11 @@ import React from 'react';
 const BillCard = ({ bill, handleClick, handleFire }) => {
   return (
     <div className="ui column">
-      <div className="ui card" key={bill.id} onClick={() => handleClick(bill)}>
+      <div 
+      className="ui card" 
+      key={bill.id} 
+      onClick={() => handleClick(bill)}
+      >
         <div className="image">
           <img alt="oh no!" src={bill.photo} />
         </div>
@@ -30,9 +34,9 @@ const BillCard = ({ bill, handleClick, handleFire }) => {
             <div className="ui center aligned segment basic">
               <button
                 className="ui mini blue button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleFire(bill);
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleFire(bill)
                 }}
               >
                 FIRE

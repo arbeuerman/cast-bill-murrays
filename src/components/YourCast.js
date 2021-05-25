@@ -8,14 +8,11 @@ class YourCast extends Component {
         <div className="ui five column grid">
           <div className="row bill-cast-row">
             Your Cast of Bill Murrays
-            {this.props.bills.map((bill) => (
-              <BillCard
-                key={bill.id}
-                bill={bill}
-                handleClick={this.props.handleClick}
-                handleFire={this.props.handleFire}
-              />
-            ))}
+            {this.props.cast.map(bill => 
+            <BillCard key={bill.id} bill={bill} 
+            handleClick={this.props.removeBill}
+            handleFire={this.props.fireBill}
+            />)}
           </div>
         </div>
       </div>

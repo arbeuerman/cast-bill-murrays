@@ -2,50 +2,58 @@ import React, { Component } from 'react';
 import BillCollection from './components/BillCollection';
 import BillsCast from '././components/YourCast';
 
-const billUrl = 'http://localhost:3000/bills';
+const billsUrl = 'http://localhost:3000/bills';
+const headers = {
+  'Content-Type' : 'application/json',
+  Accepts: 'application/json'
+}
 
 class App extends Component {
+  
   state = {
     bills: [],
-  };
-
-  componentDidMount() {
-    fetch(billUrl)
-      .then((res) => res.json())
-      .then((bills) => this.setState({ bills }));
+    cast: [ ]
   }
 
-  castBill = (bill) => {
-    const newBill = { ...bill, cast: true };
-    this.setState({ bills: this.state.bills.map((b) => (b === bill ? newBill : b)) });
-  };
+  componentDidMount() {
+    fetch(billsUrl)
+    .then(res => res.json())
+    .then(bills => this.setState({bills}))
+  }
 
-  releaseBill = (bill) => {
-    // this.setState({
-    //   castBills: [...this.state.castBills.filter((b) => b !== bill)],
-    // });
-  };
+  handleBill = (billToChange, isCast) => {
+    fetch(`${billsUrl}/${billToChange.id}`, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({cast: isCast})
+    })
+    .then(res => res.json())
+    .then((updatedBill) => this.setState({bills: this.state.bills.map(bill => bill === billToChange ? updatedBill : bill)}))
+    .catch(err => console.error(err));
+    
+  }
+  addBillToCast = (castedBill) => {
+    this.handleBill(castedBill, true);
+  }
 
-  fireBill = (bill) => {
-    // this.releaseBill(bill);
-    // this.setState({
-    //   bills: [...this.state.bills.filter((b) => b !== bill)],
-    // });
-  };
+  removeBillFromCast = (billToRemove) => {
+    this.handleBill(billToRemove, false);
+  }
+
+  fireBill = (billToFire) => {
+    fetch(`${billsUrl}/${billToFire.id}`, {
+      method: 'DELETE',
+      headers
+    })
+    .then(() => this.setState({bills: [...this.state.bills.filter(bill => bill !== billToFire)]}))
+    .catch(err => console.error(err));
+  }
 
   render() {
     return (
       <div>
-        <BillsCast
-          handleClick={this.releaseBill}
-          handleFire={this.fireBill}
-          bills={this.state.bills.filter((bill) => bill.cast)}
-        />
-        <BillCollection
-          handleClick={this.castBill}
-          handleFire={this.fireBill}
-          bills={this.state.bills}
-        />
+        <BillsCast cast={this.state.bills.filter(bill => bill.cast)} removeBill={this.removeBillFromCast} fireBill={this.fireBill} />
+        <BillCollection bills={this.state.bills} addBill={this.addBillToCast} fireBill={this.fireBill} />
       </div>
     );
   }
