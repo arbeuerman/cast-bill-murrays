@@ -18,7 +18,7 @@
       "rating": 6,
       "catchphrase": "People say I'm difficult and sometimes that's a badge of honour.",
       "photo": "https://www.fillmurray.com/200/250",
-      "cast": true
+      "cast": false
     },
     {
       "id": 104,
@@ -28,7 +28,7 @@
       "rating": 3,
       "catchphrase": "Don't think about your errors or failures; otherwise, you'll never do a thing.",
       "photo": "https://www.fillmurray.com/250/300",
-      "cast": true
+      "cast": false
     },
     {
       "id": 105,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import BillCollection from './components/BillCollection';
 import BillsCast from '././components/YourCast';
 
-const billsUrl = 'http://localhost:3000/bills';
+const billsUrl = 'http://localhost:6001/bills';
 const headers = {
   'Content-Type' : 'application/json',
   Accepts: 'application/json'
